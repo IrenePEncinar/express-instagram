@@ -49,10 +49,9 @@ const deletePost = (id, responseHandler) => {
 }
 
 const initializePostsTable = () => {
-  const sqlCreate = 'CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, username TEXT, userImage TEXT, postImage TEXT, likes INTEGER, hasBeenLiked BOOL, caption TEXT, filter TEXT);'
-
   db.serialize(() => {
-    db.run(sqlCreate)
+    db.run('DROP TABLE IF EXISTS posts;')
+    db.run('CREATE TABLE posts (id INTEGER PRIMARY KEY, username TEXT, userImage TEXT, postImage TEXT, likes INTEGER, hasBeenLiked BOOL, caption TEXT, filter TEXT);')
     initialPosts.forEach(post => {
       createPost(post, () => console.log(`Created initial post`))
     })

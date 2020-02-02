@@ -1,5 +1,6 @@
-const express = require('express')
 const { initializePostsTable, getAllPosts, createPost, updatePost, deletePost } = require('./db')
+const express = require('express')
+const cors = require('cors')
 
 // Create table if not exists and populate it with initial data
 initializePostsTable()
@@ -7,10 +8,7 @@ initializePostsTable()
 // Create express app and make it listen on port 3000
 const app = express()
 
-app.listen(3000, () => {
-  console.log('Server is listening on port 3000. Ready to accept requests!')
-})
-
+app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
@@ -31,4 +29,8 @@ app.put('/api/posts/:id', (req, res) => {
 
 app.delete('/api/posts/:id', (req, res) => {
   deletePost(req.params.id, () => res.send())
+})
+
+app.listen(3000, () => {
+  console.log('Server is listening on port 3000. Ready to accept requests!')
 })
