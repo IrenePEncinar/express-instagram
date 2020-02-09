@@ -57,7 +57,7 @@ const initializePostsTable = () => {
     db.run('DROP TABLE IF EXISTS posts;')
     db.run('CREATE TABLE posts (id INTEGER PRIMARY KEY, username TEXT, userImage TEXT, postImage TEXT, likes INTEGER, hasBeenLiked BOOL, caption TEXT, filter TEXT);')
     initialPosts.forEach((post, index) => {
-      createPost(post, () => console.log(`Post ${index} created`))
+      createPost(post, () => console.log(index))
     })
   })
 }
