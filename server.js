@@ -1,5 +1,6 @@
 const { initializePostsTable, getAllPosts, createPost, updatePost, deletePost } = require('./db')
 const express = require('express')
+const bodyParser = require('body-parser')
 const cors = require('cors')
 
 // Create table if not exists and populate it with initial data
@@ -9,7 +10,8 @@ initializePostsTable()
 const app = express()
 
 app.use(cors())
-app.use(express.json())
+app.use(bodyParser.json({limit: '10mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 
 app.get('/', (req, res) => {
   res.send('Hello world!')
