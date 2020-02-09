@@ -31,6 +31,10 @@ app.put('/api/posts/:id', (req, res) => {
   updatePost(req.params.id, req.body, () => res.send())
 })
 
+app.patch('/api/posts/:id', (req, res) => {
+  updatePost(req.params.id, req.body, () => res.send())
+})
+
 app.delete('/api/posts/:id', (req, res) => {
   deletePost(req.params.id, () => res.send())
 })
