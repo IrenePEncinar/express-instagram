@@ -26,16 +26,18 @@ const createPost = (values, responseHandler) => {
     if (err) {
       return console.log(err.message)
     }
+    console.log(`Post created`)
     responseHandler()
   })
 }
 
 const updatePost = (id, values, responseHandler) => {
-  const { likes } = values
-  db.run('UPDATE posts SET likes = ? WHERE id = ?;', [likes, id], (err) => {
+  const { likes, hasBeenLiked } = values
+  db.run('UPDATE posts SET likes = ?, hasBeenLiked = ? WHERE id = ?;', [likes, hasBeenLiked, id], (err) => {
     if (err) {
       return console.log(err.message)
     }
+    console.log(`Post ${id} updated`)
     responseHandler()
   })
 }
@@ -45,6 +47,7 @@ const deletePost = (id, responseHandler) => {
     if (err) {
       return console.log(err.message)
     }
+    console.log(`Post ${id} deleted`)
     responseHandler()
   })
 }
@@ -53,8 +56,8 @@ const initializePostsTable = () => {
   db.serialize(() => {
     db.run('DROP TABLE IF EXISTS posts;')
     db.run('CREATE TABLE posts (id INTEGER PRIMARY KEY, username TEXT, userImage TEXT, postImage TEXT, likes INTEGER, hasBeenLiked BOOL, caption TEXT, filter TEXT);')
-    initialPosts.forEach(post => {
-      createPost(post, () => console.log(`Created initial post`))
+    initialPosts.forEach((post, index) => {
+      createPost(post, () => console.log(`Post ${index} created`))
     })
   })
 }
