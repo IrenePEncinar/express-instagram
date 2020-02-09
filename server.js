@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { initializePostsTable, getAllPosts, createPost, updatePost, deletePost } = require('./db')
 const express = require('express')
 const bodyParser = require('body-parser')
