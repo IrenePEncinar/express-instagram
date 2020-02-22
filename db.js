@@ -16,7 +16,7 @@ const getAllPosts = (responseHandler) => {
       console.error(err.message)
       throw err
     }
-    responseHandler(rows)
+    responseHandler(rows.map(row =>  ({...row, hasBeenLiked: !! row.hasBeenLiked})))
   })
 }
 
